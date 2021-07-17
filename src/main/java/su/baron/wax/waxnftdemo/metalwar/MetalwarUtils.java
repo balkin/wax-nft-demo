@@ -1,6 +1,7 @@
 package su.baron.wax.waxnftdemo.metalwar;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class MetalwarUtils {
 
@@ -17,4 +18,20 @@ public class MetalwarUtils {
 
 
     public static final RaidUnit[] UNITS = {WOLF, ANT, SKUNK, RACCOON, ELEPHANTOR};
+
+    public static RaidUnit unitByName(String unit) {
+        switch (unit.toUpperCase(Locale.US)) {
+            case "WOLF":
+                return WOLF;
+            case "ANT":
+                return ANT;
+            case "SKUNK":
+                return SKUNK;
+            case "RACCOON":
+                return RACCOON;
+            case "ELEPHANTOR":
+                return ELEPHANTOR;
+        }
+        throw new MetalwarException("Non-existent unit");
+    }
 }

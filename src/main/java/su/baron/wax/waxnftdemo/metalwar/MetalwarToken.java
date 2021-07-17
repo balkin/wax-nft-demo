@@ -9,7 +9,7 @@ public enum MetalwarToken {
         this.readableName = readableName;
     }
 
-    public String getReadableName() {
+    public String   getReadableName() {
         return readableName;
     }
 }
