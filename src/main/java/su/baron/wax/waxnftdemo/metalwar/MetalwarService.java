@@ -32,15 +32,17 @@ public class MetalwarService {
     public static final URI MARKETS_URI = URI.create("https://wax.alcor.exchange/api/markets");
 
     public List<ProfitabilityDTO> calculateProfitability() {
+        if (this.tokenPrices.isEmpty()) throw new MetalwarException("Token prices are not loaded yet");
         return Arrays.stream(MetalwarUtils.UNITS).map(this::calculateProfitability).collect(Collectors.toList());
     }
 
     private final Map<MetalwarToken, Double> tokenPrices = new HashMap<>();
 
     public @NotNull ProfitabilityDTO calculateProfitability(@NotNull RaidUnit raidUnit) {
+        if (this.tokenPrices.isEmpty()) throw new MetalwarException("Token prices are not loaded yet");
         final double income = raidUnit.getOutcomeList().stream().mapToDouble(value -> tokenPrices.get(value.getShard()) * value.getAmount()).sum();
         final double loss = raidUnit.getHp() * tokenPrices.get(MetalwarToken.MWM) / 2;
-        return new ProfitabilityDTO(String.format("%s profitability", raidUnit.getShard().name()), loss, income);
+        return new ProfitabilityDTO(String.format("%s profitability", raidUnit.getShard().getReadableName()), loss, income);
     }
 
     @Autowired

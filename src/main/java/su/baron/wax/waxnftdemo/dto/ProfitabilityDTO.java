@@ -22,4 +22,8 @@ public class ProfitabilityDTO {
     public Double getProfit() {
         return profit;
     }
+
+    public Boolean isProfitable() {
+        return profit > expenses;
+    }
 }
