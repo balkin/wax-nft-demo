@@ -39,8 +39,22 @@ public class MetalwarService {
     private final Map<MetalwarToken, Double> tokenPrices = new HashMap<>();
 
     public @NotNull ProfitabilityDTO calculateProfitability(@NotNull RaidUnit raidUnit) {
-        if (this.tokenPrices.isEmpty()) throw new MetalwarException("Token prices are not loaded yet");
-        final double income = raidUnit.getOutcomeList().stream().mapToDouble(value -> tokenPrices.get(value.getShard()) * value.getAmount()).sum();
+        if (this.tokenPrices.isEmpty()) {
+            throw new MetalwarException("Token prices are not loaded yet");
+        }
+        if (!this.tokenPrices.containsKey(MetalwarToken.MWM)) {
+            throw new MetalwarException("Metalwar metal token price is unknown");
+        }
+        if (!this.tokenPrices.containsKey(raidUnit.getShard())) {
+            throw new MetalwarException("Metalwar unit token price is unknown");
+        }
+        double income = 0.0;
+        for (Outcome outcome : raidUnit.getOutcomeList()) {
+            if (!this.tokenPrices.containsKey(outcome.getShard())) {
+                throw new MetalwarException(String.format("Metalwar outcome token %s price is unknown", outcome.getShard().name()));
+            }
+            income += tokenPrices.get(outcome.getShard()) * outcome.getAmount();
+        }
         final double loss = raidUnit.getHp() * tokenPrices.get(MetalwarToken.MWM) / 2;
         return new ProfitabilityDTO(String.format("%s profitability", raidUnit.getShard().getReadableName()), loss, income);
     }
@@ -78,18 +92,21 @@ public class MetalwarService {
     }
 
     @Scheduled(fixedDelay = 30000L)
-    public void updateTokenPrices() {
-        fetchTokenPrices().thenApply(o -> {
+    public void fetchAndUpdateTokenPrices() {
+        fetchTokenPrices().thenAccept(o -> {
             log.info("Fetched {} token prices: {}", o.size(), o);
-            o.forEach((key, price) -> {
-                try {
-                    final MetalwarToken metalwarToken = MetalwarToken.valueOf(key);
-                    tokenPrices.put(metalwarToken, price);
-                } catch (Throwable ignored) {
-                    // Ignore tokens
-                }
-            });
-            return null;
+            updateTokenPrices(o);
+        });
+    }
+
+    public void updateTokenPrices(Map<String, Double> o) {
+        o.forEach((key, price) -> {
+            try {
+                final MetalwarToken metalwarToken = MetalwarToken.valueOf(key);
+                tokenPrices.put(metalwarToken, price);
+            } catch (Throwable ignored) {
+                // Ignore tokens
+            }
         });
     }
 }
