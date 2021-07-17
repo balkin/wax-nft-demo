@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -36,7 +37,7 @@ public class MetalwarService {
 
     private final Map<MetalwarToken, Double> tokenPrices = new HashMap<>();
 
-    public ProfitabilityDTO calculateProfitability(RaidUnit raidUnit) {
+    public @NotNull ProfitabilityDTO calculateProfitability(@NotNull RaidUnit raidUnit) {
         final double income = raidUnit.getOutcomeList().stream().mapToDouble(value -> tokenPrices.get(value.getShard()) * value.getAmount()).sum();
         final double loss = raidUnit.getHp() * tokenPrices.get(MetalwarToken.MWM) / 2;
         return new ProfitabilityDTO(String.format("%s profitability", raidUnit.getShard().name()), loss, income);
@@ -50,7 +51,7 @@ public class MetalwarService {
     }
 
     @Async
-    public CompletableFuture<Map<String, Double>> fetchTokenPrices() {
+    public @NotNull CompletableFuture<Map<String, Double>> fetchTokenPrices() {
         final HttpRequest request = HttpRequest.newBuilder().GET().uri(MARKETS_URI).build();
         final Map<String, Double> markets;
         try {

@@ -1,5 +1,7 @@
 package su.baron.wax.waxnftdemo.metalwar;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Outcome {
     private final MetalwarToken shard;
     private final Integer amount;
@@ -17,7 +19,7 @@ public class Outcome {
         return amount;
     }
 
-    public static Outcome of(Integer amount, MetalwarToken shard) {
+    public static @NotNull Outcome of(Integer amount, MetalwarToken shard) {
         return new Outcome(shard, amount);
     }
 }
