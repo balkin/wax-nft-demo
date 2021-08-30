@@ -1,0 +1,5 @@
+# appmap.yml
+name: my_app
+packages:
+  # List the packages you'd like to record here.
+  - path: su.baron

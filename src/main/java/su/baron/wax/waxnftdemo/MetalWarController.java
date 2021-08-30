@@ -11,7 +11,6 @@ import su.baron.wax.waxnftdemo.metalwar.MetalwarUtils;
 import su.baron.wax.waxnftdemo.metalwar.RaidUnit;
 
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class MetalWarController {

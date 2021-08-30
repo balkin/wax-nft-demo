@@ -17,7 +17,7 @@ class MetalwarServiceTest {
         // Even if one token price is not present, profitability should fail
         metalwarService.updateTokenPrices(Map.of("SHW", 0.1, "SHA", 0.2));
         assertThrows(MetalwarException.class, metalwarService::calculateProfitability);
-        assertThrows(IllegalArgumentException.class, () -> metalwarService.calculateProfitability(null));
+        assertThrows(MetalwarException.class, () -> metalwarService.calculateProfitability(null));
         metalwarService.updateTokenPrices(Map.of("MWM", 1.0));
         assertThrows(MetalwarException.class, metalwarService::calculateProfitability);
     }
@@ -33,5 +33,10 @@ class MetalwarServiceTest {
         metalwarService.updateTokenPrices(Map.of("SHW", 0.5, "SHA", 1.0, "MWM", 0.05));
         final ProfitabilityDTO newProfitabilityDTO = metalwarService.calculateProfitability(MetalwarUtils.WOLF);
         assertTrue(newProfitabilityDTO.isProfitable(), "With realistic metal price and good shard prices, it's profitable");
+    }
+
+    @Test
+    void testMvc() {
+
     }
 }

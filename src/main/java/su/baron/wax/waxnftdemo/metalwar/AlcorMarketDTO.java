@@ -33,21 +33,21 @@ public class AlcorMarketDTO {
     @JsonProperty("min_sell")
     private String minSell;
     @JsonProperty("frozen")
-    private Integer frozen;
+    private Double frozen;
     @JsonProperty("fee")
-    private Integer fee;
+    private Double fee;
     @JsonProperty("last_price")
     private Double lastPrice;
     @JsonProperty("volume24")
-    private Integer volume24;
+    private Double volume24;
     @JsonProperty("volumeWeek")
-    private Integer volumeWeek;
+    private Double volumeWeek;
     @JsonProperty("volumeMonth")
-    private Integer volumeMonth;
+    private Double volumeMonth;
     @JsonProperty("change24")
-    private Integer change24;
+    private Double change24;
     @JsonProperty("changeWeek")
-    private Integer changeWeek;
+    private Double changeWeek;
 
     @JsonProperty("id")
     public Integer getId() {
@@ -90,22 +90,22 @@ public class AlcorMarketDTO {
     }
 
     @JsonProperty("frozen")
-    public Integer getFrozen() {
+    public Double getFrozen() {
         return frozen;
     }
 
     @JsonProperty("frozen")
-    public void setFrozen(Integer frozen) {
+    public void setFrozen(Double frozen) {
         this.frozen = frozen;
     }
 
     @JsonProperty("fee")
-    public Integer getFee() {
+    public Double getFee() {
         return fee;
     }
 
     @JsonProperty("fee")
-    public void setFee(Integer fee) {
+    public void setFee(Double fee) {
         this.fee = fee;
     }
 
@@ -120,52 +120,52 @@ public class AlcorMarketDTO {
     }
 
     @JsonProperty("volume24")
-    public Integer getVolume24() {
+    public Double getVolume24() {
         return volume24;
     }
 
     @JsonProperty("volume24")
-    public void setVolume24(Integer volume24) {
+    public void setVolume24(Double volume24) {
         this.volume24 = volume24;
     }
 
     @JsonProperty("volumeWeek")
-    public Integer getVolumeWeek() {
+    public Double getVolumeWeek() {
         return volumeWeek;
     }
 
     @JsonProperty("volumeWeek")
-    public void setVolumeWeek(Integer volumeWeek) {
+    public void setVolumeWeek(Double volumeWeek) {
         this.volumeWeek = volumeWeek;
     }
 
     @JsonProperty("volumeMonth")
-    public Integer getVolumeMonth() {
+    public Double getVolumeMonth() {
         return volumeMonth;
     }
 
     @JsonProperty("volumeMonth")
-    public void setVolumeMonth(Integer volumeMonth) {
+    public void setVolumeMonth(Double volumeMonth) {
         this.volumeMonth = volumeMonth;
     }
 
     @JsonProperty("change24")
-    public Integer getChange24() {
+    public Double getChange24() {
         return change24;
     }
 
     @JsonProperty("change24")
-    public void setChange24(Integer change24) {
+    public void setChange24(Double change24) {
         this.change24 = change24;
     }
 
     @JsonProperty("changeWeek")
-    public Integer getChangeWeek() {
+    public Double getChangeWeek() {
         return changeWeek;
     }
 
     @JsonProperty("changeWeek")
-    public void setChangeWeek(Integer changeWeek) {
+    public void setChangeWeek(Double changeWeek) {
         this.changeWeek = changeWeek;
     }
 
