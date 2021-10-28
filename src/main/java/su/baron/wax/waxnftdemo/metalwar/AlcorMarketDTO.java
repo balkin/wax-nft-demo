@@ -33,7 +33,7 @@ public class AlcorMarketDTO {
     @JsonProperty("min_sell")
     private String minSell;
     @JsonProperty("frozen")
-    private Double frozen;
+    private Boolean frozen;
     @JsonProperty("fee")
     private Double fee;
     @JsonProperty("last_price")
@@ -90,12 +90,12 @@ public class AlcorMarketDTO {
     }
 
     @JsonProperty("frozen")
-    public Double getFrozen() {
+    public Boolean getFrozen() {
         return frozen;
     }
 
     @JsonProperty("frozen")
-    public void setFrozen(Double frozen) {
+    public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
     }
 
